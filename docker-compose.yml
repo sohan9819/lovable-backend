@@ -1,0 +1,15 @@
+services:
+  postgres:
+    container_name: loveableDB
+    image: postgres:15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_DB: loveableDB
+      POSTGRES_PASSWORD: password
+
+volumes:
+  postgres_data:
