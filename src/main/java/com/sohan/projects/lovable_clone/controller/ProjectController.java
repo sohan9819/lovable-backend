@@ -4,6 +4,7 @@ import com.sohan.projects.lovable_clone.dto.project.ProjectRequest;
 import com.sohan.projects.lovable_clone.dto.project.ProjectResponse;
 import com.sohan.projects.lovable_clone.dto.project.ProjectSummaryResponse;
 import com.sohan.projects.lovable_clone.service.ProjectService;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -34,13 +35,13 @@ public class ProjectController {
     }
 
     @PostMapping
-    public ResponseEntity<ProjectResponse> createProject(@RequestBody ProjectRequest request){
+    public ResponseEntity<ProjectResponse> createProject(@RequestBody @Valid ProjectRequest request){
         Long userId = 1L; // TODO : Update later with spring security
         return ResponseEntity.status(HttpStatus.CREATED).body(projectService.createUserProject(request , userId));
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ProjectResponse> updateProject(@PathVariable Long id, @RequestBody ProjectRequest request ){
+    public ResponseEntity<ProjectResponse> updateProject(@PathVariable Long id, @RequestBody @Valid ProjectRequest request ){
         Long userId = 1L; // TODO : Update later with spring security
         return ResponseEntity.ok(projectService.updateUserProject(id, request , userId));
     }

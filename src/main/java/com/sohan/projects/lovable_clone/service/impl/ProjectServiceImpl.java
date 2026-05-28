@@ -8,6 +8,7 @@ import com.sohan.projects.lovable_clone.entity.ProjectMember;
 import com.sohan.projects.lovable_clone.entity.ProjectMemberId;
 import com.sohan.projects.lovable_clone.entity.User;
 import com.sohan.projects.lovable_clone.enums.ProjectRole;
+import com.sohan.projects.lovable_clone.error.ResourceNotFoundException;
 import com.sohan.projects.lovable_clone.mapper.ProjectMapper;
 import com.sohan.projects.lovable_clone.repository.ProjectMemberRepository;
 import com.sohan.projects.lovable_clone.repository.ProjectRepository;
@@ -94,7 +95,7 @@ public class ProjectServiceImpl implements ProjectService {
     // INTERNAL FUNCTIONS
 
     public Project getAccessibleProjectById(Long id, Long userId) {
-        return projectRepository.findAccessibleProjectById(id, userId).orElseThrow();
+        return projectRepository.findAccessibleProjectById(id, userId).orElseThrow(() -> new ResourceNotFoundException("Project" , id.toString()));
     }
 
 }
