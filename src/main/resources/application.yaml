@@ -3,16 +3,22 @@ spring:
     name: lovable-clone
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/loveableDB
-    username: user
-    password: password
+    url: jdbc:postgresql://localhost:5432/lovableDB
+    username: ${DB_USERNAME:user}
+    password: ${DB_PASSWORD:password}
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
+    open-in-view: false
     show-sql: true
     properties:
       hibernate:
-#        dialect: org.hibernate.dialect.PostgreSQLDialect // Optional as JPA can detect automatically the required dialect
+        #        dialect: org.hibernate.dialect.PostgreSQLDialect // Optional as JPA can detect automatically the required dialect
         format_sql: true
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.orm.jdbc.bind: trace

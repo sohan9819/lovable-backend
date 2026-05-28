@@ -15,12 +15,13 @@ import java.time.Instant;
 @NoArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "projects")
-public class Project {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+@Table(name = "projects",
+        indexes = {
+                @Index(name = "idx_projects_updated_at_desc" , columnList = "updated_at DESC, deleted_at"),
+                @Index(name = "idx_projects_deleted_at", columnList = "deleted_at")
+        }
+)
+public class Project extends BaseEntity {
 
     @Column(nullable = false)
     String name;
@@ -31,11 +32,4 @@ public class Project {
  
     Boolean isPublic = false;
 
-    @CreationTimestamp
-    Instant createdAt;
-
-    @UpdateTimestamp
-    Instant updatedAt;
-
-    Instant deletedAt; // soft delete
 }

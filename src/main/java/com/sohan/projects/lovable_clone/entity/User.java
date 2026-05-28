@@ -18,24 +18,12 @@ import java.util.Set;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "users")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-
+public class User extends BaseEntity {
     String email;
-    String passwordHash;
+    String password;
     String name;
 
     String avatarUrl;
-
-    @CreationTimestamp
-    Instant createdAt;
-
-    @UpdateTimestamp
-    Instant updatedAt;
-
-    Instant deletedAt; // soft delete
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
     @ToString.Exclude
